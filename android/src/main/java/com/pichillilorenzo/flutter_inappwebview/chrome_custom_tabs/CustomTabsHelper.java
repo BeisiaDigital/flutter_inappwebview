@@ -52,6 +52,7 @@ public class CustomTabsHelper {
         PackageManager pm = context.getPackageManager();
         // Get default VIEW intent handler.
         Intent activityIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com"));
+        intent.addCategory(Intent.CATEGORY_BROWSABLE);
         ResolveInfo defaultViewHandlerInfo = pm.resolveActivity(activityIntent, 0);
         String defaultViewHandlerPackageName = null;
         if (defaultViewHandlerInfo != null) {
@@ -59,7 +60,8 @@ public class CustomTabsHelper {
         }
 
         // Get all apps that can handle VIEW intents.
-        List<ResolveInfo> resolvedActivityList = pm.queryIntentActivities(activityIntent, 0);
+        // デフォルトがchromecustomrtabをサポートしていない場合
+        List<ResolveInfo> resolvedActivityList = pm.queryIntentActivities(activityIntent, PackageManager.MATCH_ALL);
         List<String> packagesSupportingCustomTabs = new ArrayList<>();
         for (ResolveInfo info : resolvedActivityList) {
             Intent serviceIntent = new Intent();
