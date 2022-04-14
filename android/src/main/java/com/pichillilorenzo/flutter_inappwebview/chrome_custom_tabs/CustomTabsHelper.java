@@ -52,7 +52,7 @@ public class CustomTabsHelper {
         PackageManager pm = context.getPackageManager();
         // Get default VIEW intent handler.
         Intent activityIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com"));
-        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+        activityIntent.addCategory(Intent.CATEGORY_BROWSABLE);
         ResolveInfo defaultViewHandlerInfo = pm.resolveActivity(activityIntent, 0);
         String defaultViewHandlerPackageName = null;
         if (defaultViewHandlerInfo != null) {
