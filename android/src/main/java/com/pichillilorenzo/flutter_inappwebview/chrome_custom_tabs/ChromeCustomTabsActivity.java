@@ -157,6 +157,12 @@ public class ChromeCustomTabsActivity extends Activity implements MethodChannel.
   }
 
   public void customTabsConnected() {
+    if(manager == null){
+      // 二つの問題の回避
+      // 1つは、nullポインターアクセス
+      // もう１つは、orientationでprepareが行われる
+      return;
+    }
     customTabsSession = customTabActivityHelper.getSession();
     Uri uri = Uri.parse(initialUrl);
     customTabActivityHelper.mayLaunchUrl(uri, null, null);
